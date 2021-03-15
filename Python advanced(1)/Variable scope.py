@@ -19,8 +19,8 @@ print("Ex2", b) # 20 return ,  global과 local 차이
 # Ex3
 c = 40
 def foobar():
-    # c = c+ 10
-    # print("Ex 3> " , c)
+    # c = c + 10
+    print("Ex 3> " , c)
     return
 foobar() # UnboundLocalError: local variable 'c' referenced before assignment
 

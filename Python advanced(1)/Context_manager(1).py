@@ -28,9 +28,11 @@ class MyFileWriter():
     def __init__(self, file_name, method):
         print("MyFileWriter started : __init__")
         self.file_obj = open(file_name, method)
+
     def __enter__(self):
         print('MyFileWriter started: __enter__')
         return self.file_obj
+
     def __exit__(self, exc_type, exc_val, exc_tb):
         #tb : trace_back
         print("MyFileWriter started : __exit__")
