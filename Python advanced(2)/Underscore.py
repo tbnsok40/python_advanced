@@ -43,8 +43,11 @@ class SampleA:
         self.x = 0
         self.__y = 0 # private instance
         self._z = 0
+
 a = SampleA()
 a.x = 1
+# a.__y = 3
+print('0: ', dir(a))
 print('Ex 2 > x: {}'.format((a.x)))
 # print('Ex 2 > y:{}'.format((a.__y))) # attributeError발생
 print('Ex 3 > z: {}'.format((a._z)))
