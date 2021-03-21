@@ -1,7 +1,7 @@
 venv/
 .idea/
 
-testfile1.txt
-testfile2.txt
+.testfile1.txt
+.testfile2.txt
 testfile3.txt
 testfile4.txt
