@@ -80,7 +80,7 @@ class Logger():
 
 
 class TimestampLogger(Logger):
-    def log2(self, msg):
+    def log(self, msg):
         message = '{ts} {msg}'.format(ts=datetime.datetime.now(), msg=msg)
         super().log(message)
 
@@ -91,7 +91,7 @@ class TimestampLogger(Logger):
 
 
 class DateLogger(Logger):
-    def log2(self, msg):
+    def log(self, msg):
         message = "{ts} {msg}".format(ts=datetime.datetime.now().strftime('%Y-%m-%d'), msg=msg)
         super().log(message)
         # super(TimestampLogger, self).log(message) # 에러 나니까 위 코드로 실행 -> 편하다
@@ -110,6 +110,6 @@ print('Ex 3 > ', l.log('Called logger'))
 print('Ex 3 > ', t.log('Called Timestamp logger'))
 print('Ex 3 > ', d.log('Called Datetime logger'))
 
-# l.log('test1')
-# t.log('test2')
-# d.log('test3')
+l.log('test1')
+t.log('test2')
+d.log('test3')
