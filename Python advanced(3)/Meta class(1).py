@@ -55,3 +55,4 @@ print(' ')
 print('Ex 2 > ', type(type))
 
 # 어떤 변수, 클래스, 인스턴스의 원형 : type. 원형의 원형: type
+
