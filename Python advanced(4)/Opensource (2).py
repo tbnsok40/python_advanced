@@ -38,21 +38,7 @@ class GifConverter:
 # __name__ == '__main__' 조건을 달아준다.
 
 
-# if __name__ == '__main__':
-#     # 클래스
-#     c = GifConverter('../project/images/*.png', '../project/image_out/result.gif', (320, 240))
-#     c.convert_gif()
-#
-
-
-search_target = '''Luke Skywarker 02-123-4567 luke@daum.net
-다스베이더 070-9999-9999 darth_vader@gmail.com
-princess leia 010 2454 3457 leia@gmail.com'''
-
-
-import re
-regex = '\d{2~3}[- ]?\d{3~4}[- ]?\d{4}[- ]'
-
-result = re.findall(regex, search_target)
-print(result)
-
+if __name__ == '__main__':
+    # 클래스
+    c = GifConverter('../project/images/*.png', '../project/image_out/result.gif', (320, 240))
+    c.convert_gif()
