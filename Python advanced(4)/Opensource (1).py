@@ -26,14 +26,12 @@ path_out = '../project/image_out/result.gif'
 img, *images = [Image.open(f).resize((320,240), Image.ANTIALIAS) for f in sorted(glob.glob(path_in))] # ANITALIAS: 여백 방지
 
 
-
-
 # 이미지 저장
 img.save(
-    fp = path_out,
-    format = 'GIF',
-    append_images = images,
-    save_all = True,
+    fp=path_out, # fp: filename -> save() 메소드에 정의되어 있다.
+    format='GIF',
+    append_images=images,
+    save_all=True,
     duration=300,
     loop=0
 )
