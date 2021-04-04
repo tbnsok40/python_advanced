@@ -18,18 +18,23 @@ Contextlib - Measure execution(timer제작)
 # 예외: 프로그램적으로 발생, 프로그램 흐름에 영향을 받지 않게, 예외처리 등을 통해 우리가 컨트롤 할 수 있는 부분
 
 import time
-class ExecuteTimer(object): # object는 안적어도 되지만, 모든 클래스는 object를 상속받는 다는 것을 엄격히 알린다.
+
+
+class ExecuteTimer(object):  # object는 안적어도 되지만, 모든 클래스는 object를 상속받는 다는 것을 엄격히 알린다.
     def __init__(self, msg):
         self._msg = msg
+
     def __enter__(self):
         self._start = time.monotonic()
         return self._start
+
     def __exit__(self, exc_type, exc_val, exc_tb):
         if exc_type:
             print("Loggin exception {}".format((exc_type, exc_val, exc_tb)))
         else:
             print("{} : {} s".format(self._msg, time.monotonic() - self._start))
-        return True # 엄격히 명시하기 위해(with를 잘 빠져나왔음을 알린다.)
+        return True  # 엄격히 명시하기 위해(with를 잘 빠져나왔음을 알린다.)
+
 
 with ExecuteTimer('start') as v:
     print("Received start Monotonic ! : {}".format(v))
@@ -38,8 +43,4 @@ with ExecuteTimer('start') as v:
     for i in range(10000000):
         pass
     # 강제 예외 발생
-    raise Exception('Raise exception !!') # exc_val에 해당
-
-
-
-
+    raise Exception('Raise exception !!')  # exc_val에 해당

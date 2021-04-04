@@ -16,8 +16,7 @@ digits1 = [x * 10 for x in range(1, 11)]  # 10개의 원소 가진 리스트 생
 result = map(lambda i: i ** 2, digits1)
 print(result)
 # >>> <map object at 0x1098b9370> 형 변환 필요
-
-# list() casting
+# --> list() casting
 result = list(map(lambda i: i ** 2, digits1))
 # map()으로 함수(lambda)를 인자로 받아들인다
 print("Ex 2 >", result)
@@ -27,21 +26,23 @@ def ex2_func(x):
     return x**2
 result = list(map(ex2_func, digits1))
 
-일반함수는 재사용성 위해 메모리에 저장되기 때문에 gc에서 필터링이 되지 않는다. (대충 메모리 잡아먹는단 얘기)
-그러므로 메모리 잡지 않는 람다(익명함수)를 사용한다.어차피 일회성 함수라면
+일반함수는 재사용성 위해 메모리에 저장되기 때문에 garbage collector 에서 필터링이 되지 않는다. (대충 메모리 잡아먹는단 얘기)
+그러므로 메모리 잡지 않는 람다(익명함수)를 사용한다.어차피 일회성 함수라면.
+
+람다의 장점은 즉, 메모리 효율성도 있다.
 """
 
 # Ex 3
 digits = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 result = list(filter(lambda x: x % 2 == 0, digits))
 print("Ex 3 >", result)
-
+# 람다의 조건식이 들어가면 filter 친다.
 """
 filter를 사용하면, for if 구문을 사용하지 않아도 된다.
 """
 
 # Ex 4 : reduce
-# sequence 형 데이터에서 원소를 더할 때 사용 가능
+# sequence 형 데이터에서 원소를 누적할 때 사용 가능
 from functools import reduce
 digits3 = [x for x in range(1, 101)]
 result = reduce(lambda x, y: x + y, digits3) # 누적 합계: 문자형에 대해서도 reduce 가능

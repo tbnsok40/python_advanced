@@ -1,9 +1,36 @@
 import re
 
-search_target = '''Luke Skywarker 02-123-4567 luke@daum.net
+search_target = '''Luke Skywarker 02-123-4567 luke@daum.net_
 다스베이더 070-9999-9999 darth_vader@gmail.com
-princess leia 010 2454 3457 leia@gmail.com'''
+princess leia 010 2454 3457 leia@gmail.com
+0030589-5-95826
+'''
 
-regex = '\d{2~3}[- ]?\d{3~4}[- ]?\d{4}[- ]'
+# regex = '\d{2~3}[- ]?\d{3~4}[- ]?\d{4}[- ]'
+regex = '\W'
+# regex = '\w' # 숫자도 문자화 돼있으니 읽어들인다.
+
+# 정규표현식은 숫자도 stirng화 되어 있는 것만 다룬다. 그냥 int, float는 처리 못함
+
 result = re.findall(regex, search_target)
-print(result)
+print('\n'.join(result))
+
+"""
+
+'\d' : decimal -> 숫자만 한 단위씩 끊어서 가져와 리스트로 저장
+'\w' : word -> 문자만 한 단위씩 끊어 리스트에 저장
+'\d+' : continuous decimal -> 연속된 숫자는 하나의 리스트 원소로 저장
+'[1-9]\d*' : 연속된 수 중에 자연수만 리스트로 저장
+'\d+-?\d+-?\d+' : ? 는 있거나 없거나 라는 뜻, - 뒤에 ?가 왔으므로 - 가 있거나 없다면 select한다. 
+'\d+[- ]?\d+[- ]?\d+' : 위의 정규식은 공백이 있는 문자열은 커버하지 못한다. - 대신 공백이 있을 경우까지 커버하려면, [- ] 로 처리하면 된다.
+'\d{2}[- ]?\d{4}[- ]?\d{4}': {} bracket안의 수만큼 연속된 숫자를 select한다. 
+'\d{2,3}[- ]?\d{3,4}[- ]?\d{4}': {} bracket안의 수만큼 연속된 숫자를 or조건으로 select한다. 
+'[aeiou]' : 문자열 중에 aeiou 를 모두 가져온다. 즉 [] bracket안의 있는 단어는 모두 가져올 수 있다.
+'[a-z]+' :+ 가 없을 땐, 개별 소문자를 모두 출력, +가 있으면 연속된 소문자 모두 출력
+'[가-힣]+'
+'\S' : 공백 문자를 제외한 문자 (즉 공백의 여집합)
+'\D' : 숫자 제외한 문자 (즉 공백과 숫자의 여집합 = 모든 문자의 집합)
+'\W' : 글자 대표 문자를 제외한 글자
+
+
+"""
