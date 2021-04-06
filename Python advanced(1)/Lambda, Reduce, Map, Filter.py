@@ -32,7 +32,7 @@ result = list(map(ex2_func, digits1))
 람다의 장점은 즉, 메모리 효율성도 있다.
 """
 
-# Ex 3
+# Ex 3 : filter
 digits = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 result = list(filter(lambda x: x % 2 == 0, digits))
 print("Ex 3 >", result)
@@ -44,8 +44,9 @@ filter를 사용하면, for if 구문을 사용하지 않아도 된다.
 # Ex 4 : reduce
 # sequence 형 데이터에서 원소를 누적할 때 사용 가능
 from functools import reduce
-digits3 = [x for x in range(1, 101)]
+digits3 = [x for x in range(1, 10)]
+print(digits3)
 result = reduce(lambda x, y: x + y, digits3) # 누적 합계: 문자형에 대해서도 reduce 가능
-print('Ex 4 > ', result) # 1~100 누적 합
+print('Ex 4 > ', result) # 1~10 누적 합
 
 

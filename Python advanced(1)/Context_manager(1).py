@@ -8,20 +8,20 @@ Keyword - contextlib, __enter__, __exit__, exception
 # Ex 1
 file = open('../testfile1.txt', 'w')  # w: write
 try:
-    file.write('Context Manager Test1\nContextlib Test1.')  # 이런 내용을 텍스트 파일로 저장
+    file.write('Context Manager Test1\n Contextlib Test1.')  # 이런 내용을 텍스트 파일로 저장(write)
 finally:
-    file.close()  # 닫아준다. 자원할당받았기 때문에 다시 자원을 돌려준다 -> 메모리 낭비 방
+    file.close()  # 닫아준다. 자원 할당 받았기 때문에 다시 자원을 돌려준다 -> 메모리 낭비 방지
 
-# Ex 2
-# with는 try, catch, finally 이후에 나
+# Ex 2 - with 는 try, catch, finally 이후에 나옴.
 with open('../testfile2.txt', 'w') as f:
-    f.write('Context Manager Test2\nContextlib Test2.')
+    f.write('Context Manager Test2\n Contextlib Test2.')
 
 
-# Ex1, 2는 동일한 기능 -> finally 기능까지 with는 이미 가지고 있다. -> 자동 리소스 반환(메모리 낭비 줄인다)
+# Ex1, 2는 동일한 기능 -> finally 기능까지 with 는 이미 가지고 있다. -> 자동 리소스 반환(메모리 낭비 줄인다)
 
 # Ex 3
 # Use class -> Context Manager with Exception handling.
+
 
 class MyFileWriter():
     # class에는 초기 함수가 있어야한다.
@@ -39,8 +39,11 @@ class MyFileWriter():
         if exc_type:  # exc_type: true/false의 불린 값 : error 존재 시 true
             print('Logging exception {}'.format((exc_type, exc_val, exc_tb)))
         self.file_obj.close()  # file_obj: 오픈 함수 --> 에러가 안나면 close를 해준다.
+        return True
         # close로 resource를 반환하면 무엇보다 안전하다.
 
 
+# 클래스 형 이전에는, open이 클래스명 자리에 있었다 -> 클래스 내부 __init__에서 open을 정의해줬기 문에
 with MyFileWriter('../testfile3.txt', 'w') as f:
-    f.write('Context Manager Test3\nContextlib Test3.')
+    f.write('Context Manager Test3 alpha\nContextlib Test3.')
+    raise Exception('Error !!')

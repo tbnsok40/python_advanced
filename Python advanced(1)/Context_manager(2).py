@@ -6,7 +6,6 @@ i/o, external connection이 일어나는 작업에서
 자원 회수 할당 뿐만 아니라 우리가 원하는 로직을 삽입하여 사용하고자 context manager 사용.
 
 keyword - contextlib, __enter__, __exit__
-
 Contextlib - Measure execution(timer제작)
 """
 
@@ -40,7 +39,7 @@ with ExecuteTimer('start') as v:
     print("Received start Monotonic ! : {}".format(v))
     # Execute job -> with문에 들어온 순간부터 __enter__ 동작 --> self._start에 시작시간 할당(monotonic)
 
-    for i in range(10000000):
+    for i in range(100000):
         pass
     # 강제 예외 발생
     raise Exception('Raise exception !!')  # exc_val에 해당

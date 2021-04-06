@@ -38,16 +38,18 @@ print('Ex 1 >', dir(c1))  # get_value, value를 가지고 있다.
 # 부모 & 자식의 모든 속성값 출력
 print('Ex 1 > ', dir(ParentEx1))
 print('Ex 1 > ', dir(ChildEx1))  # 메소드가 같다.
-
-print()
-
+print('----')
+print(p1.__dict__)
+print(c1.__dict__)
+print('----')
 print('Ex 1 >', ParentEx1.__dict__)
 print('Ex 1 >', ChildEx1.__dict__)
 print("---------------------------")
 
 
 # 딕셔너리로 네임스페이스내의 속성들을 확인하는데, 부모에게는 있지만, 자식에게는 없다.
-# 인스턴스가 되는 시점에 자식에게 담기는 것이다. 그렇기 때문에 dir()과 __dict__로 찍을때 다르게 나온다.
+# 인스턴스가 되는 시점에 자식에게 담기는 것이다(c1=ChildEx1 이렇게 할당하는 것이 인스턴스화 시점, 그렇기 때문에 dir()과 __dict__로 찍을때 다르게 나온다.
+
 # dir(), __dict__ 객체 내부 검사 메서드
 # dir() - 클래스와 인스턴스 내부에서 사용할 수 있는 정보를 확인 / __dict__ :  인스턴스 내부에 어떤 속성이 있는지 확인
 
@@ -77,23 +79,26 @@ import datetime
 class Logger():
     def log(self, msg):
         print(msg)
+        return True
 
-
+# Logger의 TimestampLogger라는 자식
 class TimestampLogger(Logger):
     def log(self, msg):
         message = '{ts} {msg}'.format(ts=datetime.datetime.now(), msg=msg)
-        super().log(message)
+        super().log(message) # 부모클래스의 log() 메소드로 message인자를 넘겨벌임
 
         # 자식클래스의 프로토타입, 인스턴스를 super()의 인자로 넘긴 것
         # super(TimestampLogger, self).log(message) # 위 코드와 다를 바 없지만 더 명확하다, # fm style 로 코딩한 것
 
-    # def log()는 결국 부모에게서 상속받은 메서드 => 같은 이름을 사
+    # def log()는 결국 부모에게서 상속받은 메서드 => 같은 이름을 사욤
 
 
+# Logger의 DateLogger라는 자식 ==> 여러 자식 생김 : 다형성
 class DateLogger(Logger):
     def log(self, msg):
         message = "{ts} {msg}".format(ts=datetime.datetime.now().strftime('%Y-%m-%d'), msg=msg)
         super().log(message)
+
         # super(TimestampLogger, self).log(message) # 에러 나니까 위 코드로 실행 -> 편하다
 
 
@@ -105,10 +110,10 @@ t = TimestampLogger()
 d = DateLogger()
 
 # 메소드 재정의 실습
-print('========= Ex 3 =========')
-print('Ex 3 > ', l.log('Called logger'))
-print('Ex 3 > ', t.log('Called Timestamp logger'))
-print('Ex 3 > ', d.log('Called Datetime logger'))
+# print('========= Ex 3 =========')
+# print('Ex 3 > ', l.log('Called logger'))
+# print('Ex 3 > ', t.log('Called Timestamp logger'))
+# print('Ex 3 > ', d.log('Called Datetime logger'))
 
 l.log('test1')
 t.log('test2')
