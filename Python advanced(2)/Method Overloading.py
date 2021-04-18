@@ -26,14 +26,14 @@ class SampleA():
     # def add(self, *args): # 인자를 언팩킹하여 인자가 몇개든 상관없이 사용할 수 있다.
     #     return sum(args)
 
-
-
 a = SampleA()
+
 # print('Ex 1 > ', a.add(2, 3)) # 바로 에러터진다 => 동일 메서드명이기에, 인자가 세개를 받는 add()가 호출된다.
 # 파이썬에서는 메소드 오버로딩을 지원하지 않기 때문에 발생하는 에러
+# 자바에서는 오버로딩 가능하기 때문에, 동일한 네임이면서 여러개 만들어 서로 다른 인자 갯수를 받는 메서드를 만들 수 있다.
 
 # 모든 속성 개체 확인
-# print('Ex 1 > ', dir(a))
+print('Ex 1 > ', dir(a))
 
 # Ex 2
 # 동일 이름 메소드 사용 예제
@@ -52,7 +52,7 @@ print('Ex 2 > ', b.add('int', 5, 6, 3))
 print('Ex 2 > ', b.add('str', 'Hello', 'World'))
 
 # Ex 3
-# MultipleDispatch 패키지를 통한 메소드 오버로딩 -> pip install multipledispatch
+# MultipleDispatch 패키지를 통한 메소드 오버로딩 -> pip install multipledispatch -> 이제 자바에서 처럼 오버로딩 가
 from multipledispatch import dispatch
 class SampleC():
     @dispatch(int, int)
@@ -78,5 +78,6 @@ print("Ex 3 > ", c.product(3, 4, 5))
 print("Ex 3 > ", c.product(3.5, 4.0, 1.2))
 
 # 각 상황에 맞게 dispatch, 오버로딩되어 메소드 호출
-# 데이터 타입의 관점에서 메소드를 작성하여 구조성 있는 클래스 생
+# Ex2와 다르게 일일이 데이터 타입을 명시할 필요없이, @dispatch 어노테이션 덕분에 자동으로 처리된다.
+# 데이터 타입의 관점에서 메소드를 작성하여 구조성 있는 클래스 생성
 

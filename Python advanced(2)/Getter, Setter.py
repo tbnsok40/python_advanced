@@ -42,6 +42,9 @@ class SampleA:
 a = SampleA()
 a.x = 1
 a.y = 2 # 자동으로 세터를 호출할 타이밍
+# a.z = 100
+# print('Ex 1 > z: {}'.format(a.z))
+
 print('Ex 1 > x: {}'.format(a.x))
 print('Ex 1 > y: {}'.format(a.y))
 
@@ -52,6 +55,7 @@ print('Ex 1 - 2 >', dir(a)) # _SampleA__y 메소드가 사라진다.
 
 print(' ')
 
+
 class SampleB:
     def __init__(self):
         self.x = 0
@@ -60,14 +64,17 @@ class SampleB:
     @property # 언더스코어를 제외한 변수 이름
     def y(self): # 이게 getter
         return self.__y
+
     @y.setter
     def y(self, value):
         if value < 0:
             raise ValueError('0 보다 큰 값을 입력하세요.')
         self.__y = value
+
     @y.deleter # 메모리 절약
     def y(self):
         del self.__y
+
 
 b = SampleB()
 
@@ -77,7 +84,7 @@ b.y = 10
 print('Ex 2 > x: {}'.format(b.x))
 print('Ex 2 > y: {}'.format(b.y))
 
-b.y = -5 # 설계에 위반되는 값 => 예외 발생
+# b.y = -5 # 설계에 위반되는 값 => 예외 발생
 
 
 # 위에서 배운 내용을 토대로, 내 입맛대로 커스터마이징하거, 제약조건을 추가하면서 수정할 수 있다.
@@ -85,13 +92,11 @@ b.y = -5 # 설계에 위반되는 값 => 예외 발생
 
 # 있는 그대로를 사용하기보다, 있는 것을 개선하려는 노력이 개발력을 높인다.
 
-class Lim:
+class Person:
     def __init__(self):
         self.__age = 0
 
-    @property
-    def age(self):
-        return self.age
-    @age.setter
-    def age(self, value):
-        self.age = value
+
+james = Person()
+james.age = 20  # 인스턴스.속성 형식으로 접근하여 값 저장
+print(james.age)  # 인스턴스.속성 형식으로 값을 가져옴

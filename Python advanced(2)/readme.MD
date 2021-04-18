@@ -83,7 +83,7 @@ print("Ex 2 >", c2.get_value())
 # Ex1 과 달리 Ex2에선 메소드 오버라이딩이 일어났기 때문에, 5가 아닌 50이 출력된다.
 ```
 
-<hr/>
+<br />
 
 > ### 메소드 오버라이딩 다형성 예제
 
@@ -114,7 +114,7 @@ class DateLogger(Logger):
 <br/>
 
 
->#### 다형성
+> #### 다형성
 하나의 부모(Logger 클래스)를 정하고,
 다양한 형태(TimestampLogger, DateLogger 클래스)로 상속을 받는다.
 
@@ -135,3 +135,99 @@ d.log('test3')
 >>> 2021-04-06 test3
 ```
 분명 하나의 부모클래스에서 log() 메소드를 상속받았지만, 자식 클래스에선 다양한 형태로 출력됨을 확인 할 수 있다. 이렇듯 메소드 오버라이딩을 통해 다형성 구현이 가능하다.
+
+<hr />
+
+> ### 파이썬 메소드 오버로딩
+- 동일 클래스 내에서, 매개변수의 개수 또는 자료형(int, float 등)이 다른 동명의 메소드를 정의하는 것.
+즉, 클래스 내에서 **같은 이름의 메소드를 여러 개 선언**하는 것을 의미한다.
+- Q. 왜 이런 것을 만드느냐?.! 
+- A. 다양한 매개변수를 받아 처리할 수 있도록 하기 위함이다.
+ex) 더하기 메소드를 만들 때, 두개의 매개변수만 받는 메소드와, 세개의 매개변수, 혹은 그 이상 개수의 매개변수를 받을 수 있는 더하기 메소드를 만들 수 있다 (동일한 메소드 이름으로)
+
+
+> #### Ex 1
+- 동일 이름 메소드 사용 예제
+- 동적 타입 검사 -> 실행 시 타입 검사(타입 에러가 실행시에 발견) -> 기술면접에서 많이 물어본다.
+
+``` python
+class SampleA():
+    def add(self, x, y):
+        return x + y
+
+    def add(self, x, y, z):
+        return x + y + z
+
+    # def add(self, *args): # 인자를 언팩킹하여 인자가 몇개든 상관없이 사용할 수 있다.
+    #     return sum(args)
+
+a = SampleA()
+```
+이렇게 동일 네이밍으로 서로 다른 개수의 매개변수를 받지만, 아래에서 보면 (Java와 달리) 바로 에러 터진다.
+
+```python
+print('Ex 1 > ', a.add(2, 3)) 
+>>> TypeError: add() missing 1 required positional argument: 'z'
+
+# 바로 에러터진다 => 동일 메서드명이기에, 인자가 세개를 받는 add()가 호출된다.
+```
+- 파이썬에서는 메소드 오버로딩을 지원하지 않기 때문에 발생하는 에러
+- 자바에서는 오버로딩 가능하기 때문에, 동일한 네임이면서 여러개 만들어 서로 다른 인자 갯수를 받는 메서드를 만들 수 있다.
+
+<br/>
+
+> #### Ex 2
+- 동일 이름 메소드 사용 예제
+- 자료형에 따른 분기 처리
+
+``` python
+class SampleB():
+    def add(self, datatype, *args):
+        if datatype == 'int':
+            return sum(args)
+        if datatype == 'str':
+            return ''.join([x for x in args])
+
+b = SampleB()
+# Number
+print('Ex 2 > ', b.add('int', 5, 6, 3))
+print('Ex 2 > ', b.add('str', 'Hello', 'World'))
+```
+
+
+> #### Ex3
+- MultipleDispatch 패키지를 통한 메소드 오버로딩 ➡️ pip install multipledispatch ➡️ 메소드에 @dispatch 어노테이션을 붙여 적용 ➡️ 이제 자바에서 처럼 오버로딩 가능
+
+
+```python
+from multipledispatch import dispatch
+class SampleC():
+    @dispatch(int, int)
+    def product(self, x, y):
+        return x * y
+
+    @dispatch(int, int, int)
+    def product(self, x, y, z):
+        return x * y * z
+
+    @dispatch(float, float, float)
+    def product(self, x, y, z):
+        return x * y * z
+
+c = SampleC()
+
+# 파라미터 2개
+print("Ex 3 > ", c.product(3, 4))
+>>> Ex 3 >  12
+
+# 파라미터 3개
+print("Ex 3 > ", c.product(3, 4, 5))
+>>> Ex 3 >  60
+
+# 파라미터 3개 자료형 float
+print("Ex 3 > ", c.product(3.5, 4.0, 1.2))
+>>> Ex 3 >  16.8
+```
+- 각 상황에 맞게 dispatch, 오버로딩되어 메소드 호출
+- Ex2와 다르게 일일이 데이터 타입을 명시할 필요없이, @dispatch 어노테이션 덕분에 자동으로 처리된다.
+- 데이터 타입의 관점에서 메소드를 작성하여 구조성 있는 클래스 생성

@@ -53,10 +53,12 @@ print('Ex 2 > x: {}'.format((a.x)))
 print('Ex 3 > z: {}'.format((a._z)))
 
 print('Ex 2 > ', dir(a)) # __y는 형태가 바뀌어 저장된 것을 확인할 수 있다.
-
-a._SampleA__y = 2 # 수정 가능(강제성이 없다 but 룰로써는 지켜야한다)
+print('Ex 2 > y : {}'.format(a._SampleA__y)) # private y에 접근하기(get) 위한 방법
+a._SampleA__y = 2 # 수정 가능(강제성이 없다 but 룰로써는 지켜야한다) # private y에 수정하기(set) 위한 방법
+a._SampleA_z = 1
 
 print('Ex 2 > y : {}'.format(a._SampleA__y))
+print('Ex 2 > z : {}'.format(a._SampleA_z)) # z 는 초기화(__init__)대로 0이 나온다.
 print(" ")
 
 # Ex 3
@@ -80,11 +82,3 @@ print('Ex 3 > y : {}'.format(b.get_y()))
 
 print("Ex 3 > dir(b) : ", dir(b))
 # 자동으로 변환된 메서드명과 우리가 직접 만든 메서드(getter/setter)가 추가됐음을 확인할 수 있다.
-
-
-
-
-
-
-
-
