@@ -8,9 +8,7 @@ keyword - class of class, type, meta class, custom meta class
 2. 프레임우크 작성 시 필수
 3. 동적 생성, 커스텀 생성 가능하게 함 (by type())
 4. 커스텀 클래스 -> 검증 클래스 등
-5. 엄격한 class 사용 요구, 메소드 오버라이드 요
-6.
-
+5. 엄격한 class 사용 요구, 메소드 오버라이드 요구
 """
 
 # Ex 1
@@ -19,14 +17,13 @@ class SampleA():
     pass
 
 obj1 = SampleA() # obj에 할당한 순간, 클래스를 인스턴스화 한 것
-
-print("Ex 1 > ", obj1.__class__) # instance의 속성
-print('Ex 1 > ', type(obj1)) # >>> SampleA
-print("Ex 1 > ", obj1.__class__.__class__) # type: #python 에서 모든 클래스의 원형, 메타 클래스가 if 된다:
+print("Ex 1 > ", obj1.__class__)  #instance의 속성,  <class '__main__.SampleA'> 이건 당연한 말이다, 인스턴스의 클래스는 당연히 원형 클래스인 sampleA()
+print('Ex 1 > ', type(obj1)) # >>> SampleA,  <class '__main__.SampleA'>
+print("Ex 1 > ", obj1.__class__.__class__)  # type - python 에서 모든 클래스의 원형, 메타 클래스가 된다, <class 'type'>
 # 그렇기 때문에 우리가 type함수를 손볼 수 있다면, 동적으로 클래스를 만들 수 있고, 필요할 때마다 클래스를 만들어 낼 수 있다.
 print("Ex 1 > ", obj1.__class__ is type(obj1))
 print("Ex 1 > ", obj1.__class__.__class__ is type(obj1).__class__)
-print("Ex 1 > ", type.__class__) # 핵심: type()의 클래스도 type()이다
+print("Ex 1 >> ", type.__class__) # 핵심: type()의 클래스도 type()이다
 
 # The one thing: 모든 클래스의 메타 클래스는 type 함수!!
 
@@ -41,14 +38,20 @@ print("Ex 1 > ", type.__class__) # 핵심: type()의 클래스도 type()이다
 
 n = 10
 d = {'a': 10, 'b': 20}
+
+
 class SampleB():
     pass
+
+
 obj2 = SampleB()
 
 for o in (n, d, obj2):
     print('Ex2 > {}, {}, {}'.format(type(o), type(o) is o.__class__, o.__class__.__class__))
     # 표현 할 수 있는 모든 것의 메타클래스는 type()이다.
 print(' ')
+
+# 모든 객체(클래스, 여기서는 자료형)의 type()은 class type 이다.
 for t in int, float, list, tuple:
     print('Ex 2 > ', t, ' : ', type(t))
 print(' ')
