@@ -20,8 +20,9 @@ class Sample1():
 s1 = type('Sample1', (), {})  # base, dct를 빈값으로 넣었다
 print('Ex 1 > ', s1)
 print('Ex 1 > ', type(s1))  # type meta class의 meta class
-print('Ex 1 > ', s1.__base__)  # 클래스의 base는 object --> 모든 클래스는 object를 상속받는 것ㄹ을 증명
+print('Ex 1 > ', s1.__base__)  # 클래스의 base는 object --> 모든 클래스는 object를 상속받는 것을 증명
 print('Ex 1 > ', s1.__dict__)
+print()
 
 
 # dynamic 생성 + 상속
